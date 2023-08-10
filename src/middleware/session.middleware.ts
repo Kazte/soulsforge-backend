@@ -1,12 +1,20 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { verifyToken } from '../handlers/jwt.handler';
+import { ExtendedRequest } from '../interfaces/extended-request.interface';
 
-function checkJwt(req: Request, res: Response, next: NextFunction) {
+
+
+function checkJwt(req: ExtendedRequest, res: Response, next: NextFunction) {
 	try {
 		const jwtUser = req.headers.authorization || '';
 		const jwt = jwtUser.split(' ').pop();
 
-		if (verifyToken(`${jwt}`)) {
+		const userToken = verifyToken(`${jwt}`);
+
+
+
+		if (userToken) {
+			req.user = userToken;
 			next();
 		} else {
 			res.status(401);
@@ -21,5 +29,7 @@ function checkJwt(req: Request, res: Response, next: NextFunction) {
 		});
 	}
 }
+
+
 
 export { checkJwt };

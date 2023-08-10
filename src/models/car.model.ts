@@ -1,3 +1,4 @@
+import { Color } from './../interfaces/color.interface';
 import { Schema, Types, model, Model } from 'mongoose';
 import { Car } from '../interfaces/car.interface';
 
@@ -8,8 +9,26 @@ const ItemSchema = new Schema<Car>(
 			required: true,
 		},
 		color: {
-			type: String,
-			required: true,
+			type: {
+				r: {
+					type: Number,
+					required: true,
+					min: 0,
+					max: 255
+				},
+				g: {
+					type: Number,
+					required: true,
+					min: 0,
+					max: 255
+				},
+				b: {
+					type: Number,
+					required: true,
+					min: 0,
+					max: 255
+				},
+			},
 		},
 		gas: {
 			type: String,
