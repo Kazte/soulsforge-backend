@@ -8,6 +8,9 @@ async function generateToken(id: string) {
 
 	return jwt;
 }
-async function verifyToken() { }
+
+function verifyToken(jwt: string) {
+	return verify(jwt, JWT_SECRET);
+}
 
 export { generateToken, verifyToken };
