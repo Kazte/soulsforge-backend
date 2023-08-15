@@ -7,6 +7,7 @@ npm-debug.log*
 **/node_modules/**
 _node_modules
 .pnp.cjs
+test.json
 
 # Coverage directory used by tools like istanbul
 coverage

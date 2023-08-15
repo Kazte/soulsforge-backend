@@ -1,21 +1,41 @@
+import { AuthResult } from '../dto/auth-result';
 import { encrypt, verify } from '../handlers/bcrypt.handler';
-import { generateToken } from '../handlers/jwt.handler';
+import { generateToken, verifyToken as vt } from '../handlers/jwt.handler';
 import { Auth } from '../interfaces/auth.interface';
 import { User } from '../interfaces/user.interface';
 import { UserModel } from '../models/user.model';
+import { log } from '../utilities/log.utility';
 
 const registerNewUserSerivice = async ({ email, password, username }: User) => {
-	const checkIfExists = await UserModel.findOne({ email });
+	const checkIfExistsEmail = await UserModel.findOne({ email });
 
-	if (checkIfExists) {
-		return null;
+	if (checkIfExistsEmail) {
+		return {
+			result: false,
+			message: 'Email already used',
+			data: null,
+		};
+	}
+
+	const checkIfExistsUsername = await UserModel.findOne({ username });
+
+	if (checkIfExistsUsername) {
+		return {
+			result: false,
+			message: 'Username already used',
+			data: null,
+		};
 	}
 
 	const passwordHash = await encrypt(password);
 
 	const registerNewUser = await UserModel.create({ email, password: passwordHash, username });
 
-	return registerNewUser;
+	return {
+		result: true,
+		message: 'User created',
+		data: registerNewUser,
+	};
 };
 
 const loginUserService = async ({ email, password }: Auth) => {
@@ -33,8 +53,30 @@ const loginUserService = async ({ email, password }: Auth) => {
 
 	const token = await generateToken(user.id);
 
+	// add token to cokie
+
 	return { user: { id: user.id, username: user.username, email: user.email }, token: token };
 
 };
 
-export { registerNewUserSerivice, loginUserService };
+const verifyToken = (token: string): AuthResult => {
+	const userToken = vt(token);
+
+	if (userToken) {
+		return {
+			result: true,
+			message: 'Valid token',
+			data: userToken,
+		};
+	} else {
+		return {
+			result: false,
+			message: 'Invalid token',
+			data: null,
+		};
+	}
+};
+
+
+
+export { registerNewUserSerivice, loginUserService, verifyToken };

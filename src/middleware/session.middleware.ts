@@ -11,8 +11,6 @@ function checkJwt(req: ExtendedRequest, res: Response, next: NextFunction) {
 
 		const userToken = verifyToken(`${jwt}`);
 
-
-
 		if (userToken) {
 			req.user = userToken;
 			next();

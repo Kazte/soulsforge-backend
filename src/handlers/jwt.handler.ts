@@ -9,8 +9,21 @@ async function generateToken(id: string) {
 	return jwt;
 }
 
-function verifyToken(jwt: string): string | JwtPayload {
-	return verify(jwt, JWT_SECRET);
+function verifyToken(jwt: string): string | JwtPayload | null {
+
+	try {
+		return verify(jwt, JWT_SECRET);
+	} catch (err) {
+		return null;
+	}
 }
 
-export { generateToken, verifyToken };
+function getClaims(jwt: string): JwtPayload | null {
+	try {
+		return verify(jwt, JWT_SECRET) as JwtPayload;
+	} catch (err) {
+		return null;
+	}
+}
+
+export { generateToken, verifyToken, getClaims };

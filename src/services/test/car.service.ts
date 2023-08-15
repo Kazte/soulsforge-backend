@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Car } from '../interfaces/car.interface';
 import { CarModel } from '../models/car.model';
-import { logInfo } from '../utilities/log.utility';
 
 const insertCarService = async (item: Car) => {
 	const responseInsert = await CarModel.create(item);

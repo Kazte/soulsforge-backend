@@ -16,7 +16,11 @@ const UserSchema = new Schema<User>(
 			type: String,
 			required: true,
 			unique: true,
-		}
+		},
+		characters_eldenRing: [{
+			type: Schema.Types.ObjectId,
+			ref: 'elden_ring_character',
+		}]
 	},
 	{
 		timestamps: true,
@@ -24,4 +28,4 @@ const UserSchema = new Schema<User>(
 	}
 );
 
-export const UserModel = model('users', UserSchema); // collection name, schema
+export const UserModel = model('user', UserSchema); // collection name, schema

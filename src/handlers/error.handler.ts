@@ -3,7 +3,7 @@ import { logError } from '../utilities/log.utility';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleHttpError = (err: string, res: Response, errorRaw?: any) => {
-	errorRaw ?? logError(errorRaw);
+	console.log(errorRaw);
 	res.status(500);
 	res.send({ message: err });
 };
