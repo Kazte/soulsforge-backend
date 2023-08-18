@@ -9,6 +9,8 @@ const CharacterEldenRingSchema = new Schema<CharacterEldenRing>(
 			ref: 'user',
 			required: true
 		},
+		description: { type: String, required: true },
+		imageUrl: { type: String, required: true },
 		game: { type: String, enum: ['Elden Ring', 'Dark Souls 3', 'Dark Souls 2', 'Dark Souls', 'Bloodborne'], required: true },
 		base: {
 			bodyType: { type: String, enum: ['Type A', 'Type B'], required: true },

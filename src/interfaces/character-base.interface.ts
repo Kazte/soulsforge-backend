@@ -3,6 +3,8 @@ import { User } from './user.interface';
 export interface CharacterBase {
 	name: string,
 	user: User,
+	description: string,
+	imageUrl: string,
 	game: CharacterGame,
 }
 
