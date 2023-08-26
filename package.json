@@ -4,7 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon ./src/app.ts"
+		"dev": "nodemon ./src/app.ts",
+		"lint": "eslint .",
+		"start": "npm run lint && node ./src/index.js"
 	},
 	"keywords": [],
 	"author": "",
