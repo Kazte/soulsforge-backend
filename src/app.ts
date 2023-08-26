@@ -2,9 +2,9 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { logInfo } from './utilities/log.utility';
-import { router } from './routes';
 import db from './config/mongo';
 import { logMiddleware } from './middleware/log.middleware';
+import { authroute, charactereldenringroute, profileroute } from './routes';
 
 
 // Constants
@@ -21,7 +21,9 @@ app.use(logMiddleware);
 
 
 // Routes
-app.use(router);
+app.use('/api/auth', authroute);
+app.use('/api/character-eldenring', charactereldenringroute);
+app.use('/api/profile', profileroute);
 
 // Connect to MongoDB and the start the server
 db().then(() => {
