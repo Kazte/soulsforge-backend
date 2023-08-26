@@ -1,7 +1,6 @@
-import { Schema, model } from 'mongoose';
-import { CharacterEldenRing } from '../interfaces/character-eldenring.interface';
+import { InferSchemaType, Schema, model } from 'mongoose';
 
-const CharacterEldenRingSchema = new Schema<CharacterEldenRing>(
+const CharacterEldenRingSchema = new Schema(
 	{
 		name: { type: String, required: true },
 		user: {
@@ -9,8 +8,14 @@ const CharacterEldenRingSchema = new Schema<CharacterEldenRing>(
 			ref: 'user',
 			required: true
 		},
-		description: { type: String, required: true },
-		imageUrl: { type: String, required: true },
+		description: {
+			type: String,
+			default: 'This is a character from Elden Ring. There\'s no description yet but it will be added soon.'
+		},
+		imageUrl: {
+			type: String,
+			default: 'https://placehold.co/400?text=No%20Image%20Yet'
+		},
 		game: { type: String, enum: ['Elden Ring', 'Dark Souls 3', 'Dark Souls 2', 'Dark Souls', 'Bloodborne'], required: true },
 		base: {
 			bodyType: { type: String, enum: ['Type A', 'Type B'], required: true },
@@ -189,5 +194,7 @@ const CharacterEldenRingSchema = new Schema<CharacterEldenRing>(
 		versionKey: false,
 	}
 );
+
+export type CharacterEldenRing = InferSchemaType<typeof CharacterEldenRingSchema>;
 
 export const CharacterEldenRingModel = model('elden_ring_character', CharacterEldenRingSchema); // collection name, schema

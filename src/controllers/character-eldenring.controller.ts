@@ -1,10 +1,8 @@
-import { getCaractersByUser } from './../services/character-eldenring.service';
+import { deleteCharacter, getCaractersByUser, updateCharacter } from './../services/character-eldenring.service';
 import { handleHttpError } from '../handlers/error.handler';
 import { getCharacter, getCharacters, insertCharacter } from '../services/character-eldenring.service';
 import { ICharacterController } from './../interfaces/character-controller.interface';
 import { Request, Response } from 'express';
-import { getClaims } from '../handlers/jwt.handler';
-import { ExtendedRequest } from '../interfaces/extended-request.interface';
 
 
 export class CharacterEldenRingController implements ICharacterController {
@@ -14,7 +12,7 @@ export class CharacterEldenRingController implements ICharacterController {
 			const response = await getCharacter(id);
 			res.send(response);
 		} catch (e: any) {
-			handleHttpError('ERROR_GET_ITEMS', res, e.message);
+			handleHttpError('ERROR_GET_ITEM', res, e.message);
 		}
 	}
 
@@ -42,8 +40,16 @@ export class CharacterEldenRingController implements ICharacterController {
 		}
 	}
 
-	updateCharacter(req: Request, res: Response): void {
-		throw new Error('Method not implemented.');
+	async updateCharacter(req: Request, res: Response): Promise<void> {
+		try {
+			const id = req.params.id;
+			const item = req.body;
+
+			const response = await updateCharacter(id, item);
+			res.send(response);
+		} catch (e: any) {
+			handleHttpError('ERROR_UPDATING_ITEMS', res, e.message);
+		}
 	}
 
 	patchCharacter(req: Request, res: Response): void {
@@ -59,7 +65,20 @@ export class CharacterEldenRingController implements ICharacterController {
 		}
 	}
 
-	deleteCharacter(req: Request, res: Response): void {
-		throw new Error('Method not implemented.');
+	async deleteCharacter(req: Request, res: Response): Promise<void> {
+		try {
+
+			const token = req.headers.authorization?.split(' ')[1];
+
+			if (!token) {
+				throw new Error('Token not found');
+			}
+
+			const response = await deleteCharacter(req.params.id, token);
+
+			res.send(response);
+		} catch (e: any) {
+			handleHttpError('ERROR_DELETE_ITEM', res, e.message);
+		}
 	}
 }

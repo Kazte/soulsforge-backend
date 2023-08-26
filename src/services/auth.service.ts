@@ -2,9 +2,7 @@ import { AuthResult } from '../dto/auth-result';
 import { encrypt, verify } from '../handlers/bcrypt.handler';
 import { generateToken, verifyToken as vt } from '../handlers/jwt.handler';
 import { Auth } from '../interfaces/auth.interface';
-import { User } from '../interfaces/user.interface';
-import { UserModel } from '../models/user.model';
-import { log } from '../utilities/log.utility';
+import { User, UserModel } from '../models/user.model';
 
 const registerNewUserSerivice = async ({ email, password, username }: User) => {
 	const checkIfExistsEmail = await UserModel.findOne({ email });
