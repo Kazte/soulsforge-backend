@@ -1,4 +1,4 @@
-import { User } from './user.interface';
+import { User } from "../models/user.model";
 
 export interface CharacterBase {
 	name: string,

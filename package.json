@@ -3,10 +3,10 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "./src/app.ts",
-	"type": "module",
 	"scripts": {
 		"dev": "nodemon ./src/app.ts",
-		"start": "node ./src/app.ts"
+		"build": "tsc",
+		"start": "node dist/app.js"
 	},
 	"keywords": [],
 	"author": "",

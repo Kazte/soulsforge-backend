@@ -1,7 +1,6 @@
-import { Schema, Types, model, Model } from 'mongoose';
-import { User } from '../interfaces/user.interface';
+import { InferSchemaType, Schema, model } from 'mongoose';
 
-const UserSchema = new Schema<User>(
+const UserSchema = new Schema(
 	{
 		email: {
 			type: String,
@@ -23,5 +22,7 @@ const UserSchema = new Schema<User>(
 		versionKey: false,
 	}
 );
+
+export type User = InferSchemaType<typeof UserSchema>;
 
 export const UserModel = model('users', UserSchema); // collection name, schema
