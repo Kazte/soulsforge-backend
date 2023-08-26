@@ -2,11 +2,11 @@
 	"name": "server-sf",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "./src/app.ts",
 	"scripts": {
 		"dev": "nodemon ./src/app.ts",
 		"lint": "eslint .",
-		"start": "npm run lint && node ./src/index.js"
+		"start": "npm run lint && node ./src/app.ts"
 	},
 	"keywords": [],
 	"author": "",
