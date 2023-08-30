@@ -32,7 +32,10 @@ const registerNewUserSerivice = async ({ email, password, username }: User) => {
 	return {
 		result: true,
 		message: 'User created',
-		data: registerNewUser,
+		data: {
+			username: registerNewUser.username,
+			email: registerNewUser.email
+		},
 	};
 };
 

@@ -14,6 +14,11 @@ export const getProfileService = async (id: string) => {
 	return {
 		result: true,
 		message: '',
-		data: response
+		data: {
+			_id: response._id,
+			username: response.username,
+			email: response.email,
+			characters_eldenRing: response.characters_eldenRing
+		}
 	};
 };
