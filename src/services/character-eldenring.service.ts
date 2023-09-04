@@ -37,7 +37,6 @@ export const getCaractersByUser = async (id: string) => {
 };
 
 export const insertCharacter = async (item: CharacterEldenRing) => {
-	log(item.user)
 	const user = await UserModel.findById({ _id: item.user });
 
 	if (!user) {

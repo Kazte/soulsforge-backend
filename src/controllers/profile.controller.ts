@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { handleHttpError } from '../handlers/error.handler';
-import { getProfileService } from '../services/profile.service';
+import { getProfileByUsernameService, getProfileService } from '../services/profile.service';
+import { log } from '../utilities/log.utility';
 
 export const getProfile = async (req: Request, res: Response) => {
 	try {
@@ -12,6 +13,22 @@ export const getProfile = async (req: Request, res: Response) => {
 		}
 
 		res.send(response);
+	} catch (error: any) {
+		handleHttpError(error.message, res);
+	}
+};
+
+export const getProfileByUsername = async (req: Request, res: Response) => {
+	try {
+		const username = req.params.username;
+		const response = await getProfileByUsernameService(username);
+
+		if (!response.result) {
+			res.status(404).send(response);
+		}
+
+		res.send(response);
+
 	} catch (error: any) {
 		handleHttpError(error.message, res);
 	}
